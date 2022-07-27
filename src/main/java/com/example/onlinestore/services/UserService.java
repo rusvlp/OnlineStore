@@ -8,6 +8,8 @@ import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
+import java.security.Principal;
+
 @Service
 @RequiredArgsConstructor
 public class UserService {
@@ -19,6 +21,11 @@ public class UserService {
             throw new UserExistException();
         }
         user.setPassword(passwordEncoder.encode(user.getPassword()));
+        System.out.println("saved user " + user.getEmail());
         userRepository.save(user);
+    }
+
+    public User getUserByPrincipal(Principal p){
+        return userRepository.findByEmail(p.getName());
     }
 }

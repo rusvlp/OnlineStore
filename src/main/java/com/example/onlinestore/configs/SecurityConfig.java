@@ -12,26 +12,35 @@ import org.springframework.security.config.annotation.authentication.builders.Au
 import org.springframework.security.config.annotation.authentication.configuration.AuthenticationConfiguration;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
+import org.springframework.security.config.annotation.web.configuration.WebSecurityConfiguration;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
+import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.core.userdetails.User;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.provisioning.UserDetailsManager;
 import org.springframework.security.web.SecurityFilterChain;
+import org.springframework.security.web.access.intercept.AuthorizationFilter;
+import org.springframework.security.web.authentication.AuthenticationFilter;
 
 import javax.sql.DataSource;
 
 
 @EnableWebSecurity
 @RequiredArgsConstructor
-public class SecurityConfig {
+public class SecurityConfig extends WebSecurityConfigurerAdapter{
     private final CustomUserDetailsService userDetailsService;
 
 
-    @Bean
-    public SecurityFilterChain filterChain(HttpSecurity http) throws Exception{
-        http.authorizeRequests()
+
+
+    @Override
+    public void configure(HttpSecurity http) throws Exception{
+
+
+        http.csrf().disable().
+                authorizeRequests()
                 .antMatchers("/registration", "/login").not().fullyAuthenticated()
                 .antMatchers("/question/ask", "question/add, /question/*/addAnswer", "/test").hasAnyRole()
                 .antMatchers( "/", "/question/*", "/images/**", "/static/**", "/user/*", "/user", "/user/activate/*").permitAll()
@@ -43,23 +52,14 @@ public class SecurityConfig {
             .and()
                 .logout()
                 .permitAll();
-        return http.build();
     }
 
-   /*@Bean
-    public AuthenticationManager authenticationManager(AuthenticationConfiguration authenticationConfiguration) throws Exception {
-        return authenticationConfiguration.getAuthenticationManager();
+
+
+    @Override
+    public void configure(AuthenticationManagerBuilder authenticationManagerBuilder) throws Exception {
+        authenticationManagerBuilder.userDetailsService(userDetailsService).passwordEncoder(passwordEncoder());
     }
-
-    @Bean
-    AuthenticationManager authenticationManager(AuthenticationManagerBuilder builder) throws Exception {
-        return builder.userDetailsService(userDetailsService).passwordEncoder(passwordEncoder()).and().build();
-    }*/
-
-    /*@Bean
-    AuthenticationManager authenticationManager(AuthenticationManagerBuilder builder) throws Exception {
-        return builder.userDetailsService(userDetailsService).passwordEncoder(passwordEncoder()).and().build();
-    } */
 
 
     @Bean

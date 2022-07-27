@@ -1,8 +1,10 @@
 package com.example.onlinestore.entites;
 
 import lombok.Data;
+import lombok.RequiredArgsConstructor;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.security.crypto.password.PasswordEncoder;
 
 import javax.persistence.*;
 import java.util.Collection;
@@ -10,7 +12,9 @@ import java.util.Collection;
 @Entity
 @Table(name = "user")
 @Data
+@RequiredArgsConstructor
 public class User implements UserDetails {
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id")
@@ -29,7 +33,7 @@ public class User implements UserDetails {
 
     @Override
     public String getPassword() {
-        return this.password;
+        return this.password ;
     }
 
     @Override
