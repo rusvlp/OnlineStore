@@ -14,7 +14,9 @@
     <input type="submit" value="Зарегистрироваться">
     <#if userExistError??>
         ${userExistError}
+    <#else>
     </#if>
+
 </form>
 </body>
 </html>

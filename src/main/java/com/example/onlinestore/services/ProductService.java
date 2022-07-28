@@ -16,4 +16,7 @@ public class ProductService {
         return pr.findAll();
     }
 
+    public void addProduct(Product p){
+        pr.save(p);
+    }
 }

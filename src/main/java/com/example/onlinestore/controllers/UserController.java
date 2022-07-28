@@ -11,6 +11,8 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 
+import java.security.Principal;
+
 @Controller
 @RequiredArgsConstructor
 public class UserController{
@@ -37,5 +39,11 @@ public class UserController{
             return "registration";
         }
 
+    }
+
+    @GetMapping("/logout/success")
+    public String successLogout(Model m, Principal p){
+        m.addAttribute(us.getUserByPrincipal(p));
+        return "successLogout";
     }
 }

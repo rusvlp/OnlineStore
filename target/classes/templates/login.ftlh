@@ -10,6 +10,7 @@
         Пароль:
         <input type="password" name = "password">
         <input type="submit" value="Войти">
+        <input type="hidden" name = "_csrf" value="${_csrf.token}">
     </form>
 </body>
 </html>

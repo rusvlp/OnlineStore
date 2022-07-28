@@ -29,20 +29,18 @@ import javax.sql.DataSource;
 
 @EnableWebSecurity
 @RequiredArgsConstructor
-public class SecurityConfig extends WebSecurityConfigurerAdapter{
+public class SecurityConfig{
     private final CustomUserDetailsService userDetailsService;
 
 
+    @Bean
+    public SecurityFilterChain filterChain(HttpSecurity http) throws Exception{
 
 
-    @Override
-    public void configure(HttpSecurity http) throws Exception{
-
-
-        http.csrf().disable().
-                authorizeRequests()
-                .antMatchers("/registration", "/login").not().fullyAuthenticated()
-                .antMatchers("/question/ask", "question/add, /question/*/addAnswer", "/test").hasAnyRole()
+        http.authorizeRequests()
+                .antMatchers("/registration", "/login/*").not().fullyAuthenticated()
+                .antMatchers("/product/add").hasRole("ADMIN")
+                .antMatchers("/logout/").hasAnyRole()
                 .antMatchers( "/", "/question/*", "/images/**", "/static/**", "/user/*", "/user", "/user/activate/*").permitAll()
                 .anyRequest().authenticated()
             .and()
@@ -51,15 +49,16 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter{
                 .permitAll()
             .and()
                 .logout()
+                .logoutSuccessUrl("/logout/success")
                 .permitAll();
+
+        return http.build();
     }
 
 
 
-    @Override
-    public void configure(AuthenticationManagerBuilder authenticationManagerBuilder) throws Exception {
-        authenticationManagerBuilder.userDetailsService(userDetailsService).passwordEncoder(passwordEncoder());
-    }
+
+
 
 
     @Bean
