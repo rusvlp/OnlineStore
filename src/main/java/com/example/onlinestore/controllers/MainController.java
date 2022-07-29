@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import java.security.Principal;
+import java.util.ArrayList;
 import java.util.List;
 
 @Controller
@@ -31,6 +32,15 @@ public class MainController {
         if(lst.size() == 0){
             return "main";
         }
+
+        int numberOfPages = lst.size()/page + 1;
+        m.addAttribute("numberOfPages", numberOfPages);
+        if (page == null){
+            page = 1;
+        }
+
+        List<Product> resultSet = new ArrayList<>();
+        for (int i = (page-1) * pageSize - pageSize; i < (page-1) * pageSize || i < p )
 
         m.addAttribute("products", ps.getProducts());
         return "main";
