@@ -39,9 +39,9 @@ public class SecurityConfig{
 
         http.authorizeRequests()
                 .antMatchers("/registration", "/login/*").not().fullyAuthenticated()
-                .antMatchers("/product/add").hasRole("ADMIN")
+                .antMatchers("/product/*/edit", "/product/*/delete").hasRole("ADMIN")
                 .antMatchers("/logout/").hasAnyRole()
-                .antMatchers( "/", "/question/*", "/images/**", "/static/**", "/user/*", "/user", "/user/activate/*").permitAll()
+                .antMatchers( "/","/product/*","/images/**", "/static/**", "/user/*", "/user", "/user/activate/*").permitAll()
                 .anyRequest().authenticated()
             .and()
                 .formLogin()

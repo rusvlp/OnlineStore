@@ -17,7 +17,7 @@ import java.util.Set;
 @Table(name = "user")
 @Data
 @RequiredArgsConstructor
-public class User implements UserDetails {
+public class User implements UserDetails{
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

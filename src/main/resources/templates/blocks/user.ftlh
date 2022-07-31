@@ -5,6 +5,7 @@
             <title>
                 Интернет-магазин
             </title>
+            <link rel="stylesheet" href=/static/styles.css>
         </head>
         <body>
             <div class = "header">
@@ -19,6 +20,9 @@
                     Вы не вошли, <a href = "/login">войдите</a>
                 </#if>
             </div>
+
+
+
             <div class = "content">
                 <#nested />
             </div>

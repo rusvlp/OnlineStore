@@ -4,11 +4,13 @@ import lombok.Data;
 
 import javax.persistence.*;
 import java.time.LocalDateTime;
+import java.util.Iterator;
+import java.util.List;
 
 @Entity
 @Table(name = "product")
 @Data
-public class Product {
+public class Product implements Iterable<Object>{
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id")
@@ -41,5 +43,23 @@ public class Product {
     @PrePersist
     private void init(){
         dateOfCreate = LocalDateTime.now();
+    }
+
+    @OneToMany(cascade = CascadeType.REFRESH, fetch = FetchType.EAGER)
+    private List<Image> images;
+
+    @Override
+    public Iterator<Object> iterator() {
+        return new Iterator<Object>() {
+            @Override
+            public boolean hasNext() {
+                return false;
+            }
+
+            @Override
+            public Object next() {
+                return null;
+            }
+        };
     }
 }

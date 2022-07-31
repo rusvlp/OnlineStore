@@ -33,16 +33,21 @@ public class MainController {
             return "main";
         }
 
-        int numberOfPages = lst.size()/page + 1;
-        m.addAttribute("numberOfPages", numberOfPages);
         if (page == null){
             page = 1;
         }
 
-        List<Product> resultSet = new ArrayList<>();
-        for (int i = (page-1) * pageSize - pageSize; i < (page-1) * pageSize || i < p )
+        int numberOfPages = (lst.size()-1)/pageSize + 1;
+        m.addAttribute("numberOfPages", numberOfPages);
 
-        m.addAttribute("products", ps.getProducts());
+
+        List<Product> resultSet = new ArrayList<>();
+        for (int i = page * pageSize - pageSize; i < lst.size() && i < page * pageSize   ; i++){
+
+            resultSet.add(lst.get(i));
+        }
+
+        m.addAttribute("products", resultSet);
         return "main";
     }
 }
