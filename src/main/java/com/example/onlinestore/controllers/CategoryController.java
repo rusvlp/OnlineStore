@@ -27,6 +27,6 @@ public class CategoryController {
         m.addAttribute("user", userService.getUserByPrincipal(p));
         m.addAttribute("message", "Категория успешно добавлена");
         categoryService.addCategory(category);
-        return "successAdd";
+        return "succeedAdd";
     }
 }

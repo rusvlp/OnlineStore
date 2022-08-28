@@ -8,11 +8,13 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import java.security.Principal;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 
 @Controller
 @RequiredArgsConstructor
@@ -24,7 +26,8 @@ public class MainController {
     private final UserService us;
 
     @GetMapping("/")
-    public String main(Model m, Principal p, @RequestParam(required = false) Integer page){
+    public String main(Model m, Principal p, @RequestParam(required = false) Integer page, Map<String, String> filterParams){
+        System.out.println(filterParams.get("searchQuery"));
 
         m.addAttribute("user", us.getUserByPrincipal(p));
 

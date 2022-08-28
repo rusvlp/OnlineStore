@@ -39,7 +39,7 @@ public class SecurityConfig{
 
         http.authorizeRequests()
                 .antMatchers("/registration", "/login/*").not().fullyAuthenticated()
-                .antMatchers("/product/*/edit", "/product/*/delete").hasRole("ADMIN")
+                .antMatchers("/product/*/edit", "/product/*/delete", "images/delete/*", "product/add").hasRole("ADMIN")
                 .antMatchers("/logout/").hasAnyRole()
                 .antMatchers( "/","/product/*","/images/**", "/static/**", "/user/*", "/user", "/user/activate/*").permitAll()
                 .anyRequest().authenticated()

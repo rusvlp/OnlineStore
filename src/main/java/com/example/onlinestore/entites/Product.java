@@ -1,9 +1,11 @@
 package com.example.onlinestore.entites;
 
 import lombok.Data;
+import lombok.ToString;
 
 import javax.persistence.*;
 import java.time.LocalDateTime;
+import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
 
@@ -45,8 +47,17 @@ public class Product implements Iterable<Object>{
         dateOfCreate = LocalDateTime.now();
     }
 
-    @OneToMany(cascade = CascadeType.REFRESH, fetch = FetchType.EAGER)
-    private List<Image> images;
+    @ToString.Exclude
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "product")
+    private List<Image> images = new ArrayList<>();
+
+    @ManyToOne
+    private User author;
+
+    public void addImageToProduct(Image image){
+        this.images.add(image);
+        image.setProduct(this);
+    }
 
     @Override
     public Iterator<Object> iterator() {

@@ -30,7 +30,12 @@ public class Image{
     @Column(name = "contentType")
     private String contentType;
 
+    @ToString.Exclude
+    @ManyToOne(cascade = CascadeType.REFRESH, fetch = FetchType.EAGER)
+    @JoinColumn
+    private Product product;
 
+    @ToString.Exclude
     @Lob                                            //longblob в базе данных
     private byte[] bytes;
 
