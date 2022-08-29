@@ -2,17 +2,18 @@
 <@t.template user>
     <br/>
     <br/>
-
+    <!-- Для Ивана: разделить основную форму и навигацию по страницам, последнюю переместить вниз страницы -->
     <form action = "/" method="get">
         <label for = "searchQuery">Поиск: </label>
         <input type = "text" name = "searchQuery" id = "searchQuery">
         <input type="submit" value="Искать"> <br/> <br/>
         Сортировать по:
-        <input type = "radio" name = "priceSort" value="increasing" id = "increasingChoice">
+        <input type = "radio" name = "priceSort" value="increasing" id = "increasingChoice" <#if filters.priceSort ?? && filters.priceSort == "increasing"> checked = "checked" </#if>>
         <label for = "increasingChoice">Цена: по возрастанию</label>
-        <input type = "radio" name = "priceSort" value = "decreasing" id = "decreasingChoice">
+        <input type = "radio" name = "priceSort" value = "decreasing" id = "decreasingChoice" <#if filters.priceSort ?? && filters.priceSort == "decreasing"> checked = "checked"</#if>>
         <label for = "decreasingChoice">Цена: по убыванию</label>
         <input type = "submit" value = "Применить">
+        <button name = "page" value="1">1</button>
     </form>
 
     Привет, тут будет список товаров: <br>
@@ -44,4 +45,5 @@
             </#if>
         </#list>
     </#if>
+
 </@t.template>
