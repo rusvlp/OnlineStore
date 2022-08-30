@@ -12,8 +12,10 @@ import java.util.Map;
 public class ProductFilterSet extends AbstractFilterSet<Product>{
     private String priceSort;
     private String searchQuery;
-
     private Integer page;
+    private Integer priceFrom;
+    private Integer priceTo;
+
 
     public ProductFilterSet(){super();}
 
@@ -28,6 +30,8 @@ public class ProductFilterSet extends AbstractFilterSet<Product>{
         this.params = new HashMap<>();
         this.params.put("priceSort", this.priceSort);
         this.params.put("searchQuery", this.searchQuery);
+        this.params.put("priceFrom", this.priceFrom + "");
+        this.params.put("priceTo", this.priceTo + "");
         List<Product> results = filters.execute(params, entities);
         this.params = null;
         return results;

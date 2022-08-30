@@ -17,6 +17,7 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 import java.util.Map;
+import java.util.stream.Collectors;
 
 @Controller
 @RequiredArgsConstructor
@@ -47,6 +48,25 @@ public class MainController {
                     return 1;
                 });
             }
+
+            //Фильтр по нижней границе
+            if (params.get("priceFrom")!=null){
+                int priceFrom = Integer.parseInt(params.get("priceFrom"));
+                lst = lst.stream()
+                        .filter((obj) -> {
+                            return obj.getPrice() >= priceFrom ? true : false;
+                        }).collect(Collectors.toList());
+            }
+
+            // Фильтр по верхней границе
+            if (params.get("priceTo")!=null){
+                int priceTo = Integer.parseInt(params.get("priceTo"));
+                lst = lst.stream()
+                        .filter((obj) -> {
+                            return obj.getPrice() <= priceTo ? true : false;
+                        }).collect(Collectors.toList());
+            }
+
             System.out.println(lst);
             return lst;
 
@@ -71,7 +91,7 @@ public class MainController {
         for (int i = page * pageSize - pageSize; i < lst.size() && i < page * pageSize   ; i++){
             resultSet.add(lst.get(i));
         }
-
+        m.addAttribute("currentPage", page);
         m.addAttribute("filters", filterSet);
         m.addAttribute("products", filterSet.executeFilters(resultSet));
         return "main";
