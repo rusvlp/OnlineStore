@@ -41,4 +41,8 @@ public class ProductService {
         }
         pr.delete(found);
     }
+
+    public List<Product> getProducts(String searchQuery){
+        return pr.searchByQuery(searchQuery);
+    }
 }

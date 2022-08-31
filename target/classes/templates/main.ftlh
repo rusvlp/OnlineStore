@@ -6,21 +6,33 @@
     <form action = "/" method="get" onsubmit = "onSubmitActions()">
         <label for = "searchQuery">Поиск: </label>
         <div class = "searchQueryBlock" style="display: inline">
-             <input type = "text" name = "searchQuery" id = "searchQuery">
+             <input type = "text" name = "searchQuery" id = "searchQuery" value = "<#if filters.searchQuery ??>${filters.searchQuery}</#if>">
         </div>
         <input type="submit" value="Искать"> <br/> <br/>
         Сортировать по цене:
-        <input type = "radio" name = "priceSort" value="increasing" id = "increasingChoice" <#if filters.priceSort ?? && filters.priceSort == "increasing"> checked = "checked" </#if>>
+        <input type = "radio" name = "priceSort" value="increasing" id = "increasingChoice" <#if  filters.priceSort ?? && filters.priceSort == "increasing"> checked = "checked" </#if>>
         <label for = "increasingChoice">Цена: по возрастанию</label>
-        <input type = "radio" name = "priceSort" value = "decreasing" id = "decreasingChoice" <#if filters.priceSort ?? && filters.priceSort == "decreasing"> checked = "checked"</#if>>
+        <input type = "radio" name = "priceSort" value = "decreasing" id = "decreasingChoice" <#if  filters.priceSort ?? && filters.priceSort == "decreasing"> checked = "checked"</#if>>
         <label for = "decreasingChoice">Цена: по убыванию</label>
         <input type = "radio" name = "priceSort" value = "" id = "noneChoice">
         <label for = "noneChoice">Цена: без сортировки</label> <br/>
         Задать диапазон цены:
         <label for = "from">От: </label>
-        <input type="number" name = "priceFrom" id = "from">
+        <div class = "blockFrom" style = "display: inline">
+            <input type="number" name = "priceFrom" id = "from" <#if filters.priceFrom ??> value="${filters.priceFrom}" </#if>>
+        </div>
         <label for = "to">До: </label>
-        <input type = "number" name = "priceTo" id = "to"> <br/>
+        <div class = "blockTo" style="display: inline">
+            <input type = "number" name = "priceTo" id = "to" <#if  filters.priceTo ??> value="${filters.priceTo}" </#if>> <br/>
+        </div>
+        Выберите категории товаров: <br />
+        <#list categories as category>
+            <input type="checkbox" name = "category" value="${category.getCat().title}" id = "${category.getCat().title}Category" path = "category" <#if category.isChecked() == true>checked = "checked"<#else></#if>>
+            <label for = "${category.getCat().title}Category">${category.getCat().title}</label>
+        </#list>
+
+
+        <br />
         <input type = "submit" value = "Применить"> <br/>
         Навигация по страницам:
         <#assign nop = numberOfPages>
@@ -65,6 +77,18 @@
             let searchQuery = document.querySelector("#searchQuery");
             if (searchQuery.value == ""){
                 searchQueryBlock.innerHTML = "";
+            }
+
+            let priceFrom = document.querySelector(".blockFrom")
+            let fromValue = document.querySelector("#from")
+            if (fromValue.value == ""){
+                priceFrom.innerHTML = "";
+            }
+
+            let priceTo = document.querySelector(".blockTo")
+            let toValue = document.querySelector("#to")
+            if (toValue.value == ""){
+                priceTo.innerHTML = "";
             }
         }
         function clearCurrentPage(){

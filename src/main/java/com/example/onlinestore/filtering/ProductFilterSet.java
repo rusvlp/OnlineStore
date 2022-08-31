@@ -1,5 +1,6 @@
 package com.example.onlinestore.filtering;
 
+import com.example.onlinestore.entites.Category;
 import com.example.onlinestore.entites.Product;
 import lombok.Data;
 import lombok.ToString;
@@ -13,9 +14,9 @@ public class ProductFilterSet extends AbstractFilterSet<Product>{
     private String priceSort;
     private String searchQuery;
     private Integer page;
-    private Integer priceFrom;
-    private Integer priceTo;
-
+    private String priceFrom;
+    private String priceTo;
+    private String[] category;
 
     public ProductFilterSet(){super();}
 
@@ -30,8 +31,17 @@ public class ProductFilterSet extends AbstractFilterSet<Product>{
         this.params = new HashMap<>();
         this.params.put("priceSort", this.priceSort);
         this.params.put("searchQuery", this.searchQuery);
-        this.params.put("priceFrom", this.priceFrom + "");
-        this.params.put("priceTo", this.priceTo + "");
+        this.params.put("priceFrom", this.priceFrom);
+        this.params.put("priceTo", this.priceTo);
+        if (this.category != null){
+            this.params.put("categoriesSize", this.category.length + "");
+            for (int i = 0; i<this.category.length; i++){
+                this.params.put("category"+i, this.category[i]);
+            }
+
+        }
+
+
         List<Product> results = filters.execute(params, entities);
         this.params = null;
         return results;
