@@ -34,6 +34,7 @@
 
         <br />
         <input type = "submit" value = "Применить"> <br/>
+        <input type = "reset" value = "Сбросить"> <br />
         Навигация по страницам:
         <#assign nop = numberOfPages>
         <#list 1..nop as i>

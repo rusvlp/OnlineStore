@@ -36,7 +36,8 @@ public class MainController {
 
     @GetMapping("/")
     public String main(Model m, Principal p, @RequestParam(required = false) Integer page,  ProductFilterSet filterSet){
-        System.out.println(filterSet);
+        System.out.println(p);
+
         filterSet.filters = (params, entities) -> {
             int size = params.containsKey("categoriesSize") ? Integer.parseInt(params.get("categoriesSize")) : 0;
             List<String> categories = new ArrayList<>();
