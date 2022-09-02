@@ -54,10 +54,15 @@ public class Product implements Iterable<Object>{
     @ManyToOne
     private User author;
 
+    @OneToMany(cascade = CascadeType.REFRESH, fetch = FetchType.LAZY, mappedBy = "product")
+    private List<CartProduct> cartProducts = new ArrayList<>();
+
     public void addImageToProduct(Image image){
         this.images.add(image);
         image.setProduct(this);
     }
+
+
 
     @Override
     public Iterator<Object> iterator() {

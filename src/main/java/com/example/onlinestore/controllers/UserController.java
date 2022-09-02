@@ -39,6 +39,7 @@ public class UserController{
             return "registration";
         }
 
+
     }
 
     @GetMapping("/logout/success")
