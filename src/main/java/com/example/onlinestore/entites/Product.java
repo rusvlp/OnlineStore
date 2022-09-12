@@ -54,6 +54,7 @@ public class Product implements Iterable<Object>{
     @ManyToOne
     private User author;
 
+    @ToString.Exclude
     @OneToMany(cascade = CascadeType.REFRESH, fetch = FetchType.LAZY, mappedBy = "product")
     private List<CartProduct> cartProducts = new ArrayList<>();
 

@@ -36,4 +36,21 @@ public class Cart {
         }
         return sum;
     }
+
+    public int calculateAmountOfProducts(){
+        int sum = 0;
+        for (CartProduct cp: products){
+            sum+=cp.getQuantity();
+        }
+        return sum;
+    }
+
+
+
+    public void clean(){
+        this.products = new ArrayList<>();
+        return;
+    }
+
+
 }

@@ -11,7 +11,8 @@
             <div class = "header">
                 Здесь будет Header
                 <#if user?? && user.email??>
-                    Ваш E-Mail: ${user.email}
+                    Ваш E-Mail: ${user.email} |
+                    <a href = "/cart">Корзина</a>, в ней ${user.cart.calculateAmountOfProducts()} товаров, на сумму ${user.cart.calculateTotalCost()} рублей
                     <form action="/logout" method="post">
                         <input type="hidden" name = "_csrf" value = "${_csrf.token}">
                         <input type="submit" value="Выйти">

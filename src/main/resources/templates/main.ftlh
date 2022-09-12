@@ -52,7 +52,13 @@
             цена: ${product.price}
             назавние: ${product.title}
             описание: ${product.description} |
-            <a href = "/product/${product.id}">Подробнее...</a>
+            <a href = "/product/${product.id}">Подробнее...</a> |
+            <!-- Для Ивана: добавить сообшение о успешном добавлении товаров в корзину-->
+            <form action = "/cart/addProduct" method="post" style="display: inline">
+                <input type = "hidden" name = "_csrf" value = "${_csrf.token}">
+                <input type = "hidden" name = "productId" value="${product.id}">
+                <input type = "submit" value = "Добавить товар в корзину">
+            </form>
             <br>
         </#list>
 
