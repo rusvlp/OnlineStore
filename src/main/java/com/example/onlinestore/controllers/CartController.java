@@ -13,6 +13,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import java.security.Principal;
 
@@ -46,7 +47,7 @@ public class CartController {
         Cart cart = userService.getUserByPrincipal(p).getCart();
         cart.clean();
         cartService.saveCart(cart);
-        return "redirect:/cart";
+        return "redirect:cart";
     }
 
     @PostMapping("/increase")
@@ -54,7 +55,7 @@ public class CartController {
         Product product = productService.getProductById(productId);
         User user = userService.getUserByPrincipal(p);
         cartService.increaseQuantity(product, user);
-        return "redirect:/cart";
+        return "redirect:cart";
     }
 
     @PostMapping("/decrease")
@@ -62,6 +63,14 @@ public class CartController {
         Product product = productService.getProductById(productId);
         User user = userService.getUserByPrincipal(p);
         cartService.decreaseQuantity(product, user);
-        return "redirect:/cart";
+        return "redirect:cart";
+    }
+    @ResponseBody
+    @PostMapping("/remove")
+    public String remove(Principal p, Long productId){
+        Product product = productService.getProductById(productId);
+        User user = userService.getUserByPrincipal(p);
+        cartService.removeProduct(product, user);
+        return "smth"; //"redirect:cart";
     }
 }

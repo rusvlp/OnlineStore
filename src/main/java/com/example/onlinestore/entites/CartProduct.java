@@ -1,9 +1,6 @@
 package com.example.onlinestore.entites;
 
-import lombok.Builder;
 import lombok.Data;
-import lombok.NoArgsConstructor;
-import lombok.RequiredArgsConstructor;
 
 import javax.persistence.*;
 
@@ -65,5 +62,9 @@ public class CartProduct {
             throw new RuntimeException("Product's quantity must be positive");
         }
         this.quantity--;
+    }
+
+    public long calculateSum(){
+        return this.product.getPrice() * this.quantity;
     }
 }

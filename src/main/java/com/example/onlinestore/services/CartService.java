@@ -49,6 +49,7 @@ public class CartService {
                 .findFirst()
                 .orElseThrow(() -> new RuntimeException());
         cart.getProducts().remove(cp);
+        cartProductService.save(cp);
         return;
     }
 
@@ -59,7 +60,18 @@ public class CartService {
                 .filter(x -> x.getProduct().equals(p))
                 .findFirst()
                 .orElseThrow(() -> new RuntimeException());
-        cp.decreaseQuantity();
+        try{
+            if (cp.getQuantity() == 1){
+                this.removeProduct(p, u);
+                return;
+            }
+            cp.decreaseQuantity();
+            cartProductService.save(cp);
+        } catch (RuntimeException re){
+            return;
+        }
+
+
     }
 
     public void increaseQuantity(Product p, User u){
@@ -70,6 +82,7 @@ public class CartService {
                 .findFirst()
                 .orElseThrow(() -> new RuntimeException());
         cp.increaseQuantity();
+        cartProductService.save(cp);
     }
 
     public void setProductQuantity(Product p, User u, int quantity){
@@ -80,6 +93,7 @@ public class CartService {
                 .findFirst()
                 .orElseThrow(() -> new RuntimeException());
         cp.setQuantity(quantity);
+        cartProductService.save(cp);
     }
 
 
