@@ -12,8 +12,8 @@
     <input type="text" name = "password">
     <input type="hidden" name ="_csrf" value="${_csrf.token}">
     <input type="submit" value="Зарегистрироваться">
-    <#if userExistError??>
-        ${userExistError}
+    <#if emailError??>
+        Пользователь с таким E-Mail уже существует
     <#else>
     </#if>
 

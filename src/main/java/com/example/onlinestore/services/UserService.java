@@ -24,9 +24,7 @@ public class UserService {
     private final CartRepository cartRepository;
 
     public void registerUser(User user){
-        if (userRepository.findByEmail(user.getEmail()) != null){
-            throw new UserExistException();
-        }
+
         user.setPassword(passwordEncoder.encode(user.getPassword()));
         log.info("saved user " + user.getEmail());
         user.getRoles().add(Role.ROLE_USER);
@@ -42,6 +40,14 @@ public class UserService {
 
 
 
+
+    }
+
+    public boolean isUserExist(User user){
+        if (userRepository.findByEmail(user.getEmail()) == null){
+            return false;
+        }
+        return true;
 
     }
 

@@ -8,6 +8,10 @@ import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.crypto.password.PasswordEncoder;
 
 import javax.persistence.*;
+import javax.validation.constraints.Email;
+import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotEmpty;
+import javax.validation.constraints.Pattern;
 import java.time.LocalDateTime;
 import java.util.Collection;
 import java.util.HashSet;
@@ -25,9 +29,13 @@ public class User implements UserDetails{
     private Long id;
 
     @Column(name = "email")
+    @NotBlank(message = "Email field must be not empty")
+    @Email(message = "Email must be valid")
     private String email;
 
     @Column(name = "password")
+    @NotBlank(message = "Password field must be not empty")
+    //@Pattern(regexp = "") in debug mode disabled
     private String password;
 
     @OneToOne

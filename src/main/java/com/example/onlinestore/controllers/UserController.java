@@ -1,23 +1,28 @@
 package com.example.onlinestore.controllers;
 
 import com.example.onlinestore.entites.User;
-import com.example.onlinestore.exceptions.UserExistException;
-import com.example.onlinestore.repositories.UserRepository;
 import com.example.onlinestore.services.UserService;
+import com.example.onlinestore.util.UserValidator;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
+import org.springframework.validation.FieldError;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 
+import javax.validation.Valid;
 import java.security.Principal;
+import java.util.Map;
+import java.util.stream.Collector;
+import java.util.stream.Collectors;
 
 @Controller
 @RequiredArgsConstructor
 public class UserController{
     private final UserService us;
-
+    private final UserValidator validator;
     @GetMapping("/login")
     public String loginPage(){
         return "login";
@@ -29,18 +34,25 @@ public class UserController{
     }
 
     @PostMapping("/registration")
-    public String registration(User user, Model m){
+    public String registration(@Valid User user, Model m, BindingResult result){
         System.out.println(user);
-        try{
-            us.registerUser(user);
-            return "redirect:/";
-        } catch (UserExistException ues) {
-            m.addAttribute("userExistError", "Пользователь с таким E-Mail уже зарегистрирован");
+        validator.validate(user, result);
+        if (result.hasErrors()){
+            Map<String, String> errors = ControllerUtils.getErrors(result);
+
+            m.mergeAttributes(errors);
+            System.out.println(errors);
             return "registration";
         }
 
+        us.registerUser(user);
+        return "redirect:/`";
+
+
 
     }
+
+
 
     @GetMapping("/logout/success")
     public String successLogout(Model m, Principal p){
