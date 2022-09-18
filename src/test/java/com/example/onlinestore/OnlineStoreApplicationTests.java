@@ -1,13 +1,19 @@
 package com.example.onlinestore;
 
 import org.junit.jupiter.api.Test;
-import org.springframework.boot.test.context.SpringBootTest;
 
-@SpringBootTest
+import static org.junit.jupiter.api.Assertions.*;
+
 class OnlineStoreApplicationTests {
+
 
     @Test
     void contextLoads() {
+
     }
 
+    @Test
+    void bool(){
+        assertEquals(1, 1);
+    }
 }

@@ -17,18 +17,17 @@
         <form id = "remove${cartproduct.product.id}" method="dialog" style="display: inline">
             <input type="hidden" name = "productId" value = "${cartproduct.product.id}">
             <input type = "hidden" name = "_csrf" value="${_csrf.token}">
-
         </form>
-        <button onclick = "productAction(${cartproduct.product.id}, 'remove') "> Удалить ajax </button><br>
+        <button onclick = "productAction(${cartproduct.product.id}, 'remove') "> Удалить товар </button><br>
         <#else>
         В вашей корзине нет товаров <br>
     </#list>
     В вашей корзине ${cart.calculateAmountOfProducts()} товаров на сумму ${cart.calculateTotalCost()};
     <#if user.cart.products?size != 0>
-         <form action="/cart/clean" method="post">
+         <form id = "cleanCart" method="post">
              <input type = "hidden" name = "_csrf" value = "${_csrf.token}">
-             <input type="submit" value="Очистить коризну">
          </form>
+        <button onclick="cleanCart()">Очистить корзину</button>
 
     </#if>
     user_id: ${user.id} <br />
@@ -41,26 +40,17 @@
                 method: 'POST',
                 body: formData
             })
+            document.location.reload();
         }
 
-        function increase(id){
-            let formData = new FormData()
-        }
-
-        function decrease(id){
-            let formData = new FormData(document.getElementById("decrease"+id));
-            fetch('/cart/decrease', {
+        function cleanCart(){
+            let formData = new FormData(document.getElementById("cleanCart"));
+            fetch('/cart/clean', {
                 method: 'POST',
                 body: formData
             })
+            document.location.reload();
         }
 
-        function remove(id){
-            let formData = new FormData(document.getElementById("remove"+id));
-            fetch ('/cart/remove', {
-                method: 'POST',
-                body: formData
-            })
-        }
     </script>
 </@t.template>

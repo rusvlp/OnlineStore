@@ -48,7 +48,7 @@
     Привет, тут будет список товаров: <br>
     <#if products??>
         <#list products as product>
-            id: ${product.id}
+            id: ${product.id} <#if user?? && user.email??></#if>
             цена: ${product.price}
             назавние: ${product.title}
             описание: ${product.description} |
