@@ -10,9 +10,7 @@ pipeline{
 
         stage("Build"){
             steps{
-                dir('subDir') {
-                    checkout scm
-                }
+                bat build.bat
             }
         }
     }
