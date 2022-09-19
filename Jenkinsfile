@@ -10,7 +10,7 @@ pipeline{
 
         stage("Build"){
             steps{
-                bat 'cmd.exe build.bat'
+                bat 'build.bat'
             }
         }
     }
