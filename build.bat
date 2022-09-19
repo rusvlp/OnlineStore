@@ -1,2 +1,2 @@
-call mvn clean
-call mvn package
+mvn clean
+mvn package
