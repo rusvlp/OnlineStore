@@ -10,8 +10,9 @@ pipeline{
 
         stage("Build"){
             steps{
-                sh "mvn -version"
-                sh "mvn -clean install"
+                dir('subDir') {
+                    checkout scm
+                }
             }
         }
     }
