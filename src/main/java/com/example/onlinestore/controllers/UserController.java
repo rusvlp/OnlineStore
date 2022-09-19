@@ -7,16 +7,11 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
-import org.springframework.validation.FieldError;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
 
-import javax.validation.Valid;
 import java.security.Principal;
 import java.util.Map;
-import java.util.stream.Collector;
-import java.util.stream.Collectors;
 
 @Controller
 @RequiredArgsConstructor
@@ -34,7 +29,7 @@ public class UserController{
     }
 
     @PostMapping("/registration")
-    public String registration(@Valid User user, Model m, BindingResult result){
+    public String registration(User user, Model m, BindingResult result){
         System.out.println(user);
         validator.validate(user, result);
         if (result.hasErrors()){
