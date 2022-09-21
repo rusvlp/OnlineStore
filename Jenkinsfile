@@ -10,7 +10,15 @@ pipeline{
                 bat 'build.bat'
             }
         }
+
+        stage("Test"){
+            steps{
+
+            }
+        }
     }
+
+
 
     post{
         always{
