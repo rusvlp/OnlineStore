@@ -10,8 +10,11 @@ pipeline{
     stages{
 
         stage('Clean Up'){
-            cleanWs()
-            checkout scm
+            steps{
+                echo 'Cleaning up...'
+                cleanWs()
+                checkout scm
+            }
         }
 
         stage("Build"){
