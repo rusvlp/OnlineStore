@@ -1,0 +1,31 @@
+pipeline{
+    agent any
+    triggers{
+        pollSCM('* * * * *')
+    }
+    options {
+        skipDefaultCheckout true
+    }
+
+    stages{
+
+        stage('Clean Up'){
+            cleanWs()
+            checkout scm
+        }
+
+        stage("Build"){
+            steps{
+                sh 'build.sh'
+            }
+
+            stage("Test"){
+                steps{
+                    sh 'test.sh'
+                }
+
+            }
+
+        }
+    }
+}
