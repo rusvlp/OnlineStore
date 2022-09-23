@@ -20,7 +20,7 @@ pipeline{
         stage("Build"){
             steps{
                 sh 'ls'
-                sh 'build.sh'
+                sh 'sh build.sh'
             }
 
 
@@ -29,7 +29,7 @@ pipeline{
 
         stage("Test"){
             steps{
-                sh 'test.sh'
+                sh 'sh test.sh'
             }
 
         }
