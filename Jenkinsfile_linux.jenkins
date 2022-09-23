@@ -22,13 +22,16 @@ pipeline{
                 sh 'build.sh'
             }
 
-            stage("Test"){
-                steps{
-                    sh 'test.sh'
-                }
 
+
+        }
+
+        stage("Test"){
+            steps{
+                sh 'test.sh'
             }
 
         }
+
     }
 }
