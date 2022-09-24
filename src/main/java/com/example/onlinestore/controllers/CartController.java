@@ -42,28 +42,33 @@ public class CartController {
         return "redirect:/cart";
     }
 
+    @ResponseBody
     @PostMapping("/clean")
     public String clean(Principal p){
         Cart cart = userService.getUserByPrincipal(p).getCart();
         cart.clean();
         cartService.saveCart(cart);
-        return "redirect:cart";
+        return "cleaned";
     }
 
+    @ResponseBody
     @PostMapping("/increase")
     public String increase(Principal p, Long productId){
         Product product = productService.getProductById(productId);
         User user = userService.getUserByPrincipal(p);
         cartService.increaseQuantity(product, user);
-        return "redirect:cart";
+        log.info("Value of product with id " + productId + " INCREASED to user with email" + user.getEmail());
+        return "increased";
     }
 
+    @ResponseBody
     @PostMapping("/decrease")
     public String decrease(Principal p, Long productId){
         Product product = productService.getProductById(productId);
         User user = userService.getUserByPrincipal(p);
         cartService.decreaseQuantity(product, user);
-        return "redirect:cart";
+        log.info("Value of product with id " + productId + " DECREASED to user with email" + user.getEmail());
+        return "decreased";
     }
     @ResponseBody
     @PostMapping("/remove")
@@ -71,6 +76,6 @@ public class CartController {
         Product product = productService.getProductById(productId);
         User user = userService.getUserByPrincipal(p);
         cartService.removeProduct(product, user);
-        return "smth"; //"redirect:cart";
+        return "removed"; //"redirect:cart";
     }
 }

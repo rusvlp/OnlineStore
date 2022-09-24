@@ -2,7 +2,7 @@
 <@t.template user>
     <br/>
     <br/>
-    Jenkins PollSCM Check
+    Git Branches Check
     <!-- Для Ивана: разделить основную форму и навигацию по страницам, последнюю переместить вниз страницы -->
     <form action = "/" method="get" onsubmit = "onSubmitActions()">
         <label for = "searchQuery">Поиск: </label>
