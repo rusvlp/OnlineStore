@@ -35,4 +35,21 @@ pipeline{
         }
 
     }
+
+     post {
+            always {
+                echo 'finished'
+            }
+            success {
+                echo 'success'
+                emailext body: 'OnlineStore build SUCCESS', recipientProviders: [[$class: 'DevelopersRecipientProvider'], [$class: 'RequesterRecipientProvider']], subject: 'BUILD SUCCESSFUL'
+            }
+            failure {
+                echo 'failed'
+                emailext body: 'OnlineStore build FAILED', recipientProviders: [[$class: 'DevelopersRecipientProvider'], [$class: 'RequesterRecipientProvider']], subject: 'BUILD FAILED'
+            }
+            cleanup {
+                echo "cleaning up"
+            }
+        }
 }
