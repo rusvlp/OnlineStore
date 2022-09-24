@@ -39,8 +39,13 @@
             fetch('/cart/'+action, {
                 method: 'POST',
                 body: formData
+            }).then(response => {
+                return response.text()
+            }).then(response => {
+                console.log(response)
             })
-            document.location.reload();
+            setTimeout(() => document.location.reload(), 5000)
+
         }
 
         function cleanCart(){
