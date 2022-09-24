@@ -48,7 +48,7 @@ public class CartController {
         Cart cart = userService.getUserByPrincipal(p).getCart();
         cart.clean();
         cartService.saveCart(cart);
-        return "cleand";
+        return "cleaned";
     }
 
     @ResponseBody
