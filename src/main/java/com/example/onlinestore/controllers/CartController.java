@@ -42,12 +42,13 @@ public class CartController {
         return "redirect:/cart";
     }
 
+    @ResponseBody
     @PostMapping("/clean")
     public String clean(Principal p){
         Cart cart = userService.getUserByPrincipal(p).getCart();
         cart.clean();
         cartService.saveCart(cart);
-        return "redirect:cart";
+        return "cleaned";
     }
 
     @PostMapping("/increase")
