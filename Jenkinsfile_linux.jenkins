@@ -42,11 +42,11 @@ pipeline{
             }
             success {
                 echo 'success'
-                emailext body: 'OnlineStore build SUCCESS', recipientProviders: [[$class: 'DevelopersRecipientProvider'], [$class: 'RequesterRecipientProvider']], subject: 'BUILD SUCCESSFUL'
+                emailext body: 'OnlineStore build SUCCESS', recipientProviders: [[$class: 'DevelopersRecipientProvider'], [$class: 'RequesterRecipientProvider']], subject: 'BUILD SUCCESSFUL', to: 'qdrwlad@gmail.com'
             }
             failure {
                 echo 'failed'
-                emailext body: 'OnlineStore build FAILED', recipientProviders: [[$class: 'DevelopersRecipientProvider'], [$class: 'RequesterRecipientProvider']], subject: 'BUILD FAILED'
+                emailext body: 'OnlineStore build FAILED', recipientProviders: [[$class: 'DevelopersRecipientProvider'], [$class: 'RequesterRecipientProvider']], subject: 'BUILD FAILED', to: 'qdrwlad@gmail.com'
             }
             cleanup {
                 echo "cleaning up"
