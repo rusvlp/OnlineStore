@@ -33,6 +33,6 @@ public class ProductWIthImageRequestTest {
             }
         });
         ProductWithImageAddRequest pwi = new ProductWithImageAddRequest(new Product(), 1, new User(), pwis.getPool());
-        assertEquals(3, pwi.getId());
+        assertEquals(2, pwi.getId());
     }
 }

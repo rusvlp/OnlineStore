@@ -35,4 +35,31 @@ pipeline{
         }
 
     }
+
+     post {
+            always {
+                echo 'finished'
+            }
+            success {
+                echo 'success'
+                emailext attachLog: false,
+                                      attachmentsPattern: 'example_file.yaml',
+                                      from: 'qdrwlad@gmail.com',
+                                      body: 'BUILD SUCCESS',
+                                      subject: 'OnlineStore build successful',
+                                      to: 'qdrwlad@gmail.com'
+            }
+            failure {
+                echo 'failed'
+                emailext attachLog: false,
+                                  attachmentsPattern: 'example_file.yaml',
+                                  from: 'qdrwlad@gmail.com',
+                                  body: 'BUILD FAILURE',
+                                  subject: 'OnlineStore build failed',
+                                  to: 'qdrwlad@gmail.com'
+            }
+            cleanup {
+                echo "cleaning up"
+            }
+        }
 }
