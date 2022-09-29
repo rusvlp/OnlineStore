@@ -9,4 +9,5 @@ public abstract class AbstractFilterSet <T>{
     Map<String, String> params;
 
     abstract List<T> executeFilters(List<T> entities);
+
 }

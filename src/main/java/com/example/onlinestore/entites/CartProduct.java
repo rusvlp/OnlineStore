@@ -1,6 +1,7 @@
 package com.example.onlinestore.entites;
 
 import lombok.Data;
+import lombok.ToString;
 
 import javax.persistence.*;
 
@@ -12,6 +13,9 @@ public class CartProduct {
     @Column(name = "id")
     private Long id;
 
+    @ToString.Exclude
+    @ManyToOne
+    private Cart cart;
 
     @ManyToOne
     private Product product;
@@ -38,6 +42,11 @@ public class CartProduct {
 
         public Builder quantity(int quantity){
             CartProduct.this.quantity = quantity;
+            return this;
+        }
+
+        public Builder cart(Cart cart){
+            CartProduct.this.cart = cart;
             return this;
         }
 

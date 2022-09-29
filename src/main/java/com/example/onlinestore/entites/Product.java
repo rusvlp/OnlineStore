@@ -55,7 +55,7 @@ public class Product implements Iterable<Object>{
     private User author;
 
     @ToString.Exclude
-    @OneToMany(cascade = CascadeType.REFRESH, fetch = FetchType.LAZY, mappedBy = "product")
+    @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY, mappedBy = "product")
     private List<CartProduct> cartProducts = new ArrayList<>();
 
     public void addImageToProduct(Image image){

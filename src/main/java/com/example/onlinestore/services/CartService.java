@@ -36,8 +36,7 @@ public class CartService {
             }
         }
         // Если в корзине нет объекта типа CartProduct с таким объектом - создаем его
-        CartProduct cp = CartProduct.builder().product(p).quantity(1).build();
-        cart.getProducts().add(cp);
+        CartProduct cp = CartProduct.builder().product(p).quantity(1).cart(cart).build();
         cartProductService.save(cp);
         return;
     }

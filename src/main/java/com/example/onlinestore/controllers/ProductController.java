@@ -5,7 +5,6 @@ import com.example.onlinestore.entites.Product;
 import com.example.onlinestore.entites.ProductWithImageAddRequest;
 import com.example.onlinestore.services.*;
 import lombok.RequiredArgsConstructor;
-import org.springframework.security.core.parameters.P;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
@@ -66,7 +65,7 @@ public class ProductController {
         m.addAttribute("user", userService.getUserByPrincipal(p));
         m.addAttribute("message", "Удалено!");
         productService.deleteProductById(id);
-        return "succeedAdd";
+        return "success";
     }
 
     @PostMapping("/{id}/edit")

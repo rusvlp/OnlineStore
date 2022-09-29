@@ -21,7 +21,7 @@ public class Cart {
     @OneToOne(mappedBy = "cart")
     private User user;
 
-    @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+    @OneToMany(cascade = CascadeType.REMOVE, fetch = FetchType.EAGER, mappedBy = "cart")
     private List<CartProduct> products = new ArrayList<>();
 
     public void cleanCart(){
@@ -32,7 +32,7 @@ public class Cart {
     public int calculateTotalCost(){
         int sum = 0;
         for (CartProduct cp: products){
-            sum+=cp.getProduct().getPrice();
+            sum+=cp.getProduct().getPrice() * cp.getQuantity();
         }
         return sum;
     }
