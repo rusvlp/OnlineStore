@@ -3,6 +3,8 @@ package com.example.onlinestore.controllers;
 import com.example.onlinestore.entites.Image;
 import com.example.onlinestore.entites.Product;
 import com.example.onlinestore.entites.ProductWithImageAddRequest;
+import com.example.onlinestore.freemarkerTemplates.Form;
+import com.example.onlinestore.freemarkerTemplates.Method;
 import com.example.onlinestore.services.*;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
@@ -19,9 +21,9 @@ public class ProductController {
     private final ProductService productService;
     private final UserService userService;
     private final CategoryService categoryService;
-    private final ProductWithImageAddRequestService pwiservice;
+    private final ProductWithImageAddRequestService productWithImageAddRequestService;
     private final ImageService imageService;
-
+    private final CartProductService cartProductService;
     @PostMapping("/add")
     @ResponseBody
     public Long add(Product p, Principal prn, Model m, @RequestParam String categoryName, @RequestParam int noi){
@@ -33,11 +35,11 @@ public class ProductController {
             productService.addProduct(p);
 
         } else {
-            ProductWithImageAddRequest pr = new ProductWithImageAddRequest(p, noi, userService.getUserByPrincipal(prn), pwiservice.getPool());
+            ProductWithImageAddRequest pr = new ProductWithImageAddRequest(p, noi, userService.getUserByPrincipal(prn), productWithImageAddRequestService.getPool());
             return pr.getId();
         }
 
-        return -1l;
+        return -1L;
     }
 
 
@@ -62,6 +64,12 @@ public class ProductController {
 
     @PostMapping("/{id}/delete")
     public String deleteProduct(@PathVariable Long id, Principal p, Model m){
+        if (cartProductService.getCartProductByProduct(id).size() > 0){
+            m.addAttribute("form1", Form.builder().method(Method.METHOD_POST));
+
+            return "confirm";
+        }
+
         m.addAttribute("user", userService.getUserByPrincipal(p));
         m.addAttribute("message", "Удалено!");
         productService.deleteProductById(id);
@@ -81,6 +89,6 @@ public class ProductController {
     @PostMapping("/{pwiId}/addImage")
     public void addImage(@PathVariable Long pwiId, @RequestParam(name = "file") MultipartFile file){
         Image i = imageService.toImage(file);
-        pwiservice.addImage(i, pwiId);
+        productWithImageAddRequestService.addImage(i, pwiId);
     }
 }
