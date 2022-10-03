@@ -1,7 +1,6 @@
 package com.example.onlinestore.services;
 
 import com.example.onlinestore.entites.CartProduct;
-import com.example.onlinestore.entites.Product;
 import com.example.onlinestore.repositories.CartProductRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -22,4 +21,7 @@ public class CartProductService {
         return cartProductRepository.getCartProductByProductId(id);
     }
 
+    public void deleteById(Long id){
+        cartProductRepository.deleteById(id);
+    }
 }

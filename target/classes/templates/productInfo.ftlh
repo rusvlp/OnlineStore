@@ -1,5 +1,5 @@
 <#import "blocks/user.ftlh" as t>
-<@t.template user>
+<@t.template>
     <h1>Информация о товаре: </h1> <br />
     <form action = "/prodcut/${product.id}/edit" method="post" class = ".mainform">
         <div class = "hidden">Режим редактирования</div>

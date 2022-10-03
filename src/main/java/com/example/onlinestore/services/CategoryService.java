@@ -2,7 +2,6 @@ package com.example.onlinestore.services;
 
 import com.example.onlinestore.entites.Category;
 import com.example.onlinestore.repositories.CategoryRepository;
-import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 
@@ -30,4 +29,6 @@ public class CategoryService {
         categoryRepository.save(category);
         log.info("Saved category: " + category.getTitle());
     }
+
+
 }

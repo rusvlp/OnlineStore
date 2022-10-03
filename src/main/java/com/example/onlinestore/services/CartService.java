@@ -47,8 +47,7 @@ public class CartService {
                 .stream().filter(a -> a.getProduct().equals(p))
                 .findFirst()
                 .orElseThrow(() -> new RuntimeException());
-        cart.getProducts().remove(cp);
-        cartProductService.save(cp);
+        cartProductService.deleteById(cp.getId());
         return;
     }
 

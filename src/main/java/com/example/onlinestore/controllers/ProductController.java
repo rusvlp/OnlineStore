@@ -3,8 +3,6 @@ package com.example.onlinestore.controllers;
 import com.example.onlinestore.entites.Image;
 import com.example.onlinestore.entites.Product;
 import com.example.onlinestore.entites.ProductWithImageAddRequest;
-import com.example.onlinestore.freemarkerTemplates.Form;
-import com.example.onlinestore.freemarkerTemplates.Method;
 import com.example.onlinestore.services.*;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
@@ -13,6 +11,8 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.security.Principal;
+import java.util.HashMap;
+import java.util.Map;
 
 @Controller
 @RequiredArgsConstructor
@@ -64,12 +64,26 @@ public class ProductController {
 
     @PostMapping("/{id}/delete")
     public String deleteProduct(@PathVariable Long id, Principal p, Model m){
-        if (cartProductService.getCartProductByProduct(id).size() > 0){
-            m.addAttribute("form1", Form.builder().method(Method.METHOD_POST));
+        m.addAttribute("user", userService.getUserByPrincipal(p));
 
+        if (cartProductService.getCartProductByProduct(id).size() > 0){
+            Map<String, String> inlineStyle = new HashMap<>(){
+                {
+                    this.put("display", "inline");
+                }
+            };
+            m.addAttribute("message", "Внимание! Этот товар находится в корзине у одного или более пользователей. Вы действительно хотите продолжить?");
+            m.addAttribute("productId", id);
             return "confirm";
         }
 
+        m.addAttribute("message", "Удалено!");
+        productService.deleteProductById(id);
+        return "success";
+    }
+
+    @PostMapping("/{id}/delete/confirm")
+    public String confirmProductDelete(@PathVariable Long id, Principal p, Model m){
         m.addAttribute("user", userService.getUserByPrincipal(p));
         m.addAttribute("message", "Удалено!");
         productService.deleteProductById(id);
@@ -83,7 +97,7 @@ public class ProductController {
         productService.updateProduct(newProduct);
         m.addAttribute("product", newProduct);
         m.addAttribute("message", "Товар успешно добавлен");
-        return "succeedAdd";
+        return "success";
     }
 
     @PostMapping("/{pwiId}/addImage")
