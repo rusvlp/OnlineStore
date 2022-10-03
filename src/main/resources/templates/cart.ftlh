@@ -1,5 +1,5 @@
 <#import "blocks/user.ftlh" as t>
-<@t.template user>
+<@t.template>
     <#list user.cart.products as cartproduct>
         ${cartproduct.product.title} |
         <form id = "increase${cartproduct.product.id}" method="dialog" style="display: inline">

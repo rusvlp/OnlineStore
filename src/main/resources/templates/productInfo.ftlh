@@ -1,7 +1,7 @@
 <#import "blocks/user.ftlh" as t>
-<@t.template user>
+<@t.template>
     <h1>Информация о товаре: </h1> <br />
-    <form action = "/prodcut/${product.id}/edit" method="post" class = ".mainform">
+    <form action = "/product/${product.id}/edit" method="post" class = ".mainform">
         <div class = "hidden">Режим редактирования</div>
         Id: ${product.id}  <input type = "hidden" value = "${product.id}" required><br />
         Название: ${product.title} <input type = "text" name = "title" class = "hidden" value="${product.title}" required> <br />
