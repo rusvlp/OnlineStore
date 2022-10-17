@@ -45,8 +45,8 @@ pipeline{
                 emailext attachLog: false,
                                       attachmentsPattern: 'example_file.yaml',
                                       from: 'qdrwlad@gmail.com',
-                                      body: 'BUILD SUCCESS',
-                                      subject: 'OnlineStore build successful',
+                                      body: 'BUILD #${BUILD_NUMBER} SUCCESS',
+                                      subject: 'OnlineStore build #${BUILD_NUMBER} successful',
                                       to: 'qdrwlad@gmail.com'
             }
             failure {
