@@ -34,6 +34,13 @@ pipeline{
 
         }
 
+        stage("Sending to Artifactory"){
+            steps{
+                zip zipFile: 'OnlineStore_Build${BUILD_NUMBER}.zip', dir:'/target/'
+                sh 'mv target/OnlineStore_Build${BUILD_NUMBER}.zip /home/rusvlp/artifactory'
+            }
+        }
+
     }
 
      post {
